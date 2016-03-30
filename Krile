@@ -1,0 +1,70 @@
+
+-- -- -- Krileの設定方法 -- -- -- 
+
+1. app登録
+
+https://apps.twitter.com/ でCreate New Appをクリック。
+
+Name = appsの名前 - 適当でおｋ
+
+Description = appsの説明 - KrileApps とかでおｋ
+
+Website = アプリが働くサイト - https://twitter.com/[ここにTwitterID]とかでおｋ
+例 : https://twitter.com/___monmon_
+
+
+Yes, I agreeで同意してapp作成
+
+2. Krileダウンロード , インストール
+
+http://krile.starwing.net/ からversion3.0.0を落とし、設定する（割愛）
+
+3. Krile初期設定
+
+適当にすすめて、上にある「settings」をクリック。アカウントタブの一番下の「APIキーを再設定」をクリック
+
+警告（？）が出るので、「APIキーを再設定」をクリック
+
+https://apps.twitter.com/ で先ほど作ったappを選択。「Keys and access Tokens」タブをクリックし、
+「Consumer Key」、「Consumer Secret」をKrileにコピペする
+
+続いてAPIキーの再設定の右側にある「新しいアカウントを追加」をクリック。
+ブラウザが開くので、アカウントの利用を許可し、表示される数字をKrileに打ち込んでokを押す
+
+
+4.クエリ設定
+
+トップ画面に戻り、Homeを右クリック、「このタブを閉じる」をクリック
+
+他にもタブを開いていたら同じようにタブを閉じる
+
+クエリでツイートの表示方法等の細かい設定ができる
+
+先ほどのHomeがあった所を右クリック「新規タブの追加」をクリック
+同様の方法で、TL , 通知 , 自分宛てリプ , エゴサ , 被Fav / RT , DM を作成
+
+これを入力して何が出来る等は「考えなくても大丈夫」←ここ重要
+
+以下記載のクエリをコピペしたら完成
+
+
+TL 
+from local where user <- *.following | (retweet & (retweeter <- * | retweeter <- *.followings)) | user <- * | to -> *
+
+通知
+ from all where to -> * & !retweet | user <- * & (favs > 0 | rts > 0) && !(dm)
+ 
+自分宛てリプ
+from all where to -> * & !retweet && !dm
+ 
+エゴサ
+from track:"エゴサしたい内容","エゴサしたい内容","エゴサしたい内容","エゴサしたい内容" where !( text contains "@自分のTwitterID" | dm | retweet)
+
+被Fav / RT
+where user in us && (favs > 0 || rts > 0)
+
+DM
+from all where direct_message
+
+
+以上！
