@@ -41,7 +41,7 @@ https://apps.twitter.com/ で先ほど作ったappを選択。「Keys and access
 クエリでツイートの表示方法等の細かい設定ができる
 
 先ほどのHomeがあった所を右クリック「新規タブの追加」をクリック
-同様の方法で、TL , 通知 , 自分宛てリプ , エゴサ , 被Fav / RT , DM を作成
+同様の方法で、TL , 通知 , 自分宛てリプ , エゴサ , 被Fav / RT , DM, 非公式RT を作成
 
 これを入力して何が出来る等は「考えなくても大丈夫」←ここ重要
 
@@ -66,5 +66,7 @@ where user in us && (favs > 0 || rts > 0)
 DM
 from all where direct_message
 
+非公式RT
+from local where ( text contains "twitter.com/自分のID" | text contains "twitter.com/自分のID" |  text contains "twitter.com/自分のID") && !( retweet )
 
 以上！
