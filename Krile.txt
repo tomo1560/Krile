@@ -41,7 +41,7 @@ https://apps.twitter.com/ で先ほど作ったappを選択。「Keys and access
 クエリでツイートの表示方法等の細かい設定ができる
 
 先ほどのHomeがあった所を右クリック「新規タブの追加」をクリック
-同様の方法で、TL(All), TL(Name) , 通知 , 自分宛てリプ , エゴサ , 被Fav / RT , DM, 非公式RT を作成
+同様の方法で、TL(All), TL(Name) , 通知 , 自分宛てリプ , エゴサ , エゴサ(Follow/Follower) , 被Fav / RT , DM, 非公式RT を作成
 
 これを入力して何が出来る等は「考えなくても大丈夫」←ここ重要
 
@@ -52,7 +52,7 @@ TL
 from local where user <- *.following | (retweet & (retweeter <- * | retweeter <- *.followings)) | user <- * | to -> *
 
 各アカウントTL
-from local where (user in @tomo9016.following) | (rts contains @tomo9016.following) | (to contains @tomo9016) | (user in @tomo9016 & !rt) | (rts in @tomo9016)
+from local where (user in @自分のID.following) | (rts contains @自分のID.following) | (to contains @自分のID) | (user in @自分のID & !rt) | (rts in @自分のID)
 
 通知
 from all where to -> * & !retweet | user <- * & (favs > 0 | rts > 0) && !(dm)
@@ -61,7 +61,10 @@ from all where to -> * & !retweet | user <- * & (favs > 0 | rts > 0) && !(dm)
 from all where to -> * & !retweet && !dm
  
 エゴサ
-from track:"エゴサしたい内容","エゴサしたい内容","エゴサしたい内容","エゴサしたい内容" where !( text contains "@自分のTwitterID" | dm | retweet)
+from track:"エゴサしたい内容","エゴサしたい内容","エゴサしたい内容","エゴサしたい内容" where !( text contains "@自分のID" | dm | retweet)
+
+エゴサ(Follow/Follower)
+from local where ( text contains "エゴサしたい内容" | text contains "エゴサしたい内容" |  text contains "エゴサしたい内容" |  text contains "エゴサしたい内容")  &&  (user in *.following | user in *.followers)  && !(text contains "@自分のID" |  dm | retweet)
 
 被Fav / RT
 where user in us && (favs > 0 || rts > 0)
