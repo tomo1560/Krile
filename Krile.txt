@@ -15,6 +15,11 @@ Website = アプリが働くサイト - https://twitter.com/[ここにTwitterID]
 
 Yes, I agreeで同意してapp作成
 
+作成後、作成したappの名前をクリックし設定をパーミッション設定を変更する。
+
+Permissionタブを選択しAccessの設定を"Read, Write and Access direct messages"に変更しUpdate Settingsで変更を適応する。
+
+
 2. Krileダウンロード , インストール
 
 http://krile.starwing.net/ からversion3.0.0を落とし、設定する（割愛）
